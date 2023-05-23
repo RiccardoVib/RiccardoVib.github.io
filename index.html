@@ -46,8 +46,257 @@ function runit() {
 </script> 
 
 <script type="text/python">
-      # Your Python code goes here
-      print("Hello, world!")
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+import warnings
+warnings.filterwarnings('ignore')
+
+import ipywidgets as widgets
+from IPython.display import display, clear_output, Audio
+
+#!jupyter nbextension enable --py widgetsnbextension --sys-prefix
+#!jupyter serverextension enable voila --sys-prefix
+
+
+# In[2]:
+
+
+# Image Widget
+
+file = open("Figs/ED.png", "rb")
+image = file.read()
+
+image_headline = widgets.Image(
+                    value=image,
+                    format='png',
+                    width='900'
+                )
+label_headline = widgets.HTML(value="Proposed architecture. Encoder consists of two layers: one taking the conditioning control parameters and the other one taking the past of the input signal. Control parameters are processed by a fully-connected layer, while the input is processed by the convolutional layer. The outputs of both layers are added to each other to compute the internal states that act as conditioning for the LSTM layer composing the decoder. The decoder takes the current input signal as well. w is the size in samples of the encoder and decoder input signal, and u is the number of units. The internal states dimension must match the number of units of the LSTM layer, for this reason, we selected the same number of units for all the layers. A fully-connected with followed by a sigmoid activation function is placed after the LSTM layer and finally, the output layer is a fully-connected layer with o indicating the number of output samples.")
+
+#label_headline = widgets.Label(
+#                    value='',
+#                    style={'description_width': 'initial'}
+#                )
+
+vbox_headline = widgets.VBox([image_headline, label_headline])
+
+# grandson/granddaughter
+
+#grand = widgets.ToggleButtons(
+#            options=['grandson', 'granddaughter']
+#        )
+
+
+# name
+
+#name = widgets.Text(placeholder='Your name here')
+
+
+# In[3]:
+
+
+# number of friends
+
+attack = widgets.FloatSlider(
+            value=150, # default value
+            min=0.5, 
+            max=300,
+            step=74.875,
+            style={'description_width': 'initial', 'handle_color': '#16a085'} 
+        )
+release = widgets.FloatSlider(
+            value=5, # default value
+            min=0.05, 
+            max=10,
+            step=2.4875,
+            style={'description_width': 'initial', 'handle_color': '#16a085'} 
+        )
+ratio = widgets.IntSlider(
+            value=6, # default value
+            min=2, 
+            max=10,
+            step=2,
+            style={'description_width': 'initial', 'handle_color': '#16a085'} 
+        )
+threshold = widgets.IntSlider(
+            value=-20, # default value
+            min=-40, 
+            max=0,
+            step=10,
+            style={'description_width': 'initial', 'handle_color': '#16a085'} 
+        )
+
+
+# In[4]:
+
+
+# button send
+
+#button_send = widgets.Button(
+#                description='Load',
+#                tooltip='Send',
+#                style={'description_width': 'initial'}
+#            )
+
+#output = widgets.Output()
+
+#audio_inp = widgets.Audio.from_file("Audio_CL1B/Input.wav", autoplay=False)
+#text_inp = widgets.HTML(value="<h5>Input</h5>")
+
+#def on_button_clicked(event):
+#    with output:
+#        clear_output()
+        
+#        if round(attack.value) == 0:
+#            at = '0'
+#        elif round(attack.value) == 75:
+#            at = '025'
+#        elif round(attack.value) == 150:
+#            at = '05'
+#        elif round(attack.value) == 225:
+#            at = '075'
+#        elif round(attack.value) == 300:
+#            at = '1'
+#        
+#        if round(release.value) == 0:
+#            re = '0'
+#        elif round(release.value) == 3:
+#            re = '025'
+#        elif round(release.value) == 5:
+#            re = '05'
+#        elif round(release.value) == 8:
+#            re = '075'
+#        elif round(release.value) == 10:
+#            re = '1'
+        
+#        if round(ratio.value) == 2:
+#            ra = '0'
+#        elif round(ratio.value) == 4:
+#            ra = '025'
+#        elif round(ratio.value) == 6:
+#            ra = '05'
+#        elif round(ratio.value) == 8:
+#            ra = '075'
+#        elif round(ratio.value) == 10:
+#            ra = '1'
+#        
+#        if round(threshold.value) == 0:
+#            th = '0'
+#        elif round(threshold.value) == -10:
+#            th = '025'
+#        elif round(threshold.value) == -20:
+#            th = '05'
+#        elif round(threshold.value) == -30:
+#            th = '075'
+#        elif round(threshold.value) == -40:
+#            th = '1'
+
+        #print(round(attack.value))
+        #print(round(release.value))
+        #print(ratio.value)
+        #print(threshold.value)
+#        text_header2 = widgets.HTML(value="<h5>Reference</h5>")
+#        text_header3 = widgets.HTML(value="<h5>Prediction</h5>")
+
+#        text = 'pred_at_' + at + '_re_' + re +'_ra_' + ra + '_th_' + th
+#        audio_pred = widgets.Audio.from_file("Audio_CL1B/pred" + text + ".wav", autoplay=False)
+        
+#        audio_tar = widgets.Audio.from_file("Audio_CL1B/tar" + text + ".wav", autoplay=False)
+    
+#        grid = widgets.GridBox([text_header2, text_header3, audio_inp, audio_tar, audio_pred], layout=widgets.Layout(grid_template_columns="repeat(4, 300px)"))
+
+        #display(audio_)
+        
+#button_send.on_click(on_button_clicked)
+
+#vbox_result = widgets.VBox([text_inp, audio_inp, button_send, output])
+
+
+# In[5]:
+
+
+audio_inp0 = widgets.Audio.from_file("Other Samples/00_inp.wav", autoplay=False, loop=False)
+audio_pred0 = widgets.Audio.from_file("Other Samples/00_pred_at_2_re_2_ra_4_th_2.wav", autoplay=False, loop=False)
+audio_tar0 = widgets.Audio.from_file("Other Samples/00_tar_at_2_re_2_ra_4_th_2.wav", autoplay=False, loop=False)
+audio_inp1 = widgets.Audio.from_file("Other Samples/01_inp.wav", autoplay=False, loop=False)
+audio_pred1 = widgets.Audio.from_file("Other Samples/01_pred_at_3_re_3_ra_1_th_3.wav", autoplay=False, loop=False)
+audio_tar1 = widgets.Audio.from_file("Other Samples/01_tar_at_3_re_3_ra_1_th_3.wav", autoplay=False, loop=False)
+audio_inp2 = widgets.Audio.from_file("Other Samples/02_inp.wav", autoplay=False, loop=False)
+audio_pred2 = widgets.Audio.from_file("Other Samples/02_pred_at_0_re_0_r_3_th_3.wav", autoplay=False, loop=False)
+audio_tar2 = widgets.Audio.from_file("Other Samples/02_tar_at_0_re_0_r_3_th_3.wav", autoplay=False, loop=False)
+
+
+# In[6]:
+
+
+# stacked right hand side
+
+title = widgets.HTML(value="<h1>FULLY CONDITIONED AND LOW-LATENCY BLACK-BOX MODELING OF ANALOG COMPRESSION</h1>")
+abstract = widgets.HTML(value="<h1>Abstract</h1>")
+abstract_text_1 = widgets.HTML(value="<h7>Neural networks have been found suitable for virtual analog modeling applications. Several analog audio effects have been successfully modeled with deep learning techniques, using low-latency and conditioned architectures which are suitable for real-world applications. Challenges remain with effects presenting more complex responses, such as nonlinear and time-varying input-output relationships. To address this problem, this paper proposes a deep-learning model for the analog compression effect. The architecture we introduce is fully conditioned by the device control parameters and works on small audio segments allowing low-latency and real-time implementation. The architecture is used to model the CL 1B analog audio-optical compressor, showing an overall high accuracy and ability to capture the different nonlinear attack and release profiles of the compressor. The ability of the proposed architecture to model audio compression behaviors, in general, is verified using datasets collected from other compressors as well. Limitations remain with heavy compression scenarios determined by the conditioning parameters. The paper also presents a comparison of performances against the dataset and state-of-the-art architecture.</h7>")
+
+
+#title = widgets.HTML(value="<h1>CL 1B Audio Examples</h1>")
+healine_text = widgets.HTML(value="<h2> CL 1B Audio Examples </h2>")
+arch_text = widgets.HTML(value="<h2> Architecture </h2>")
+text_citation = widgets.HTML(value="<h2>Citation</h2>")
+
+
+text_at = widgets.HTML(value="<h5>Attack Time (ms)</h5>")
+text_re = widgets.HTML(value="<h5>Release Time (s)</h5>")
+text_th = widgets.HTML(value="<h5>Threshold (dBU)</h5>")
+text_ra = widgets.HTML(value="<h5>Ratio (x:1)</h5>")
+
+empty = widgets.HTML(value="<h5> </h5> ")
+
+text_header1 = widgets.HTML(value="<h5>Input</h5>")
+text_header2 = widgets.HTML(value="<h5>Reference</h5>")
+text_header3 = widgets.HTML(value="<h5>Prediction</h5>")
+
+#0.5 to 300 ms
+#0.05 to 10 seconds.
+text_tab1 = widgets.HTML(value="<h9>Attack time: 150 ms, Release time: 5 s, Ratio: 10:1, Threshold: -20dBU</h9>")
+text_tab2 = widgets.HTML(value="<h9>Attack time: 225 ms, Release time: 7,5 s, Ratio: 4:1, Threshold: -30dBU</h9>")
+text_tab3 = widgets.HTML(value="<h9>Attack time: 0.5 ms, Release time: 0.05 s, Ratio: 8:1, Threshold: -30dBU</h9>")
+
+#vbox_text = widgets.VBox([title, abstract, abstract_text_1, healine_text, text_at, attack, text_re, release, text_th, threshold, text_ra, ratio, vbox_result])
+vbox_text = widgets.VBox([title, abstract, abstract_text_1])
+#vbox_audios_inp = widgets.VBox([text_header1, audio_inp0, audio_inp1, audio_inp2])
+#vbox_audios_tar = widgets.VBox([text_header2, audio_tar0, audio_tar1, audio_tar2])
+#vbox_audios_pred = widgets.VBox([text_header3, audio_pred0, audio_pred1, audio_pred2])
+
+#vbox_audios_text = widgets.VBox([text_tab1, text_tab2, text_tab3])
+vbox_text = widgets.VBox([title, abstract, abstract_text_1, arch_text])
+#hbox_audio = widgets.HBox([vbox_audios_text, vbox_audios_inp, vbox_audios_tar, vbox_audios_pred])
+
+grid = widgets.GridBox([empty, text_header1, text_header2, text_header3, text_tab1, audio_inp0, audio_tar0, audio_pred0, text_tab2, audio_inp1, audio_tar1, audio_pred1, text_tab3, audio_inp2, audio_tar2, audio_pred2], layout=widgets.Layout(grid_template_columns="repeat(4, 300px)"))
+
+#vbox_result2 = widgets.VBox([text_at, attack, text_re, release, text_th, threshold, text_ra, ratio, vbox_result])
+
+
+# In[7]:
+
+
+page = widgets.VBox([vbox_text, vbox_headline, healine_text, grid, text_citation])
+display(page)
+
+
+# In[8]:
+
+
+#!pip freeze > requirements.txt
+
+
+# In[ ]:
+
+
+
+
+
    
  </script>  
     

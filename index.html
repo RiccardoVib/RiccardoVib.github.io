@@ -58,27 +58,7 @@ from IPython.display import display, clear_output, Audio
 !jupyter nbextension enable --py widgetsnbextension --sys-prefix
 !jupyter serverextension enable voila --sys-prefix
 
-
-file = open("Figs/ED.png", "rb")
-image = file.read()
-
-image_headline = widgets.Image(
-                    value=image,
-                    format='png',
-                    width='900'
-                )
-label_headline = widgets.HTML(value="Proposed architecture. Encoder consists of two layers: one taking the conditioning control parameters and the other one taking the past of the input signal. Control parameters are processed by a fully-connected layer, while the input is processed by the convolutional layer. The outputs of both layers are added to each other to compute the internal states that act as conditioning for the LSTM layer composing the decoder. The decoder takes the current input signal as well. w is the size in samples of the encoder and decoder input signal, and u is the number of units. The internal states dimension must match the number of units of the LSTM layer, for this reason, we selected the same number of units for all the layers. A fully-connected with followed by a sigmoid activation function is placed after the LSTM layer and finally, the output layer is a fully-connected layer with o indicating the number of output samples.")
-
-vbox_headline = widgets.VBox([image_headline, label_headline])
-
-
-
-
-page = widgets.VBox([vbox_headline])
-display(page)
-
-
-
+print('hello')
 
    
  </script>  
